@@ -1,22 +1,20 @@
-
+import ImageCard from "../ImageCard/ImageCard"
 
 function ImageGallery({ images }) {
-  // const [count, setCount] = useState(0)
 
   return (
     <>
-       {/* < className={css.container}>
+       {<ul className={css.container}>
             {images.map((image) => (
 	/* Набір елементів списку із зображеннями */
-	/* 
+
 		 <li className="" key="image.id">
-                  <ImageCard data={image} onDelete={onDelete} /> 
+                  <ImageCard data={image} /> 
            </li>
-	</li>
-</ul> 
- ) ) } */
+
+            ))} 
+        </ul> 
       }
-    
     </>
   )
 }

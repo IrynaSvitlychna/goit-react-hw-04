@@ -1,7 +1,7 @@
 
 
 function SearchBar({ onSearch}) {
-  // const [count, setCount] = useState(0)
+
   const handleSubmit = (e) => {
      e.preventDefault();
     const form = e.target;
@@ -14,14 +14,13 @@ function SearchBar({ onSearch}) {
     form.reset();
   };
 
-  }
-  return (
+ return (
     <>
       <header>
-        <form onSubmst={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <input
             type="text"
-            name="topsc"
+            name="topic"
             autocomplete="off"
             autofocus
             placeholder="Search images and photos"
@@ -31,6 +30,7 @@ function SearchBar({ onSearch}) {
      </header>
     </>
   )
+
 }
 
 export default SearchBar
