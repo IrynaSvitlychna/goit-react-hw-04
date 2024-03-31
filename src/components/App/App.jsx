@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import SearchBar from '../SearchBar/SearchBar';
 import ImageGallery from '../ImageGallery/ImageGallery';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import ImageModal from '../ImageModal/ImageModal';
 import './App.css'
+import fetchImages from '../article-api';
+
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -12,19 +14,38 @@ function App() {
   const [page, setPage] = useState(1);
    const [isloading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
+  const formRef = useRef();
+
+  
+  const galleryRef = useRef();
+
+  window.onscroll = function scrollSetting() {
+    if (window.scrollY > 20) {
+      setIsScroll(true);
+    } else {
+      setIsScroll(false);
+    }
+  };
 
   useEffect(() => { 
-    if (searchQuery=== "") {
+    
+
+    async function getData(searchQuery, page) {
+      try { 
+        if (searchQuery=== "") {
       return;
     }
-
-    async function getData() {
-      try { 
         setIsLoading(true);
         setError(false);
-        const data = await fetchArticles(searchQuery, page);
-        setImages(prevImages => {
+        const data = await fetchImages(searchQuery, page);
+         if (data.results.length === 0) {
+          throw new Error("Nothing found!");
+         }
+        if (page > 1) {
+           setImages(prevImages => {
           return [...prevImages, ...data];
+        }
+       
         });
       }
       catch (error) {
