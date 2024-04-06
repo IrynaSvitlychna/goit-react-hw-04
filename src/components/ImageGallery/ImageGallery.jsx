@@ -1,22 +1,30 @@
 import ImageCard from "../ImageCard/ImageCard"
+import { forwardRef } from "react";
+import { BiSolidChevronsUp } from "react-icons/bi";
+import css from "./ImageGallery.module.css";
 
-function ImageGallery({ images }) {
-
+const ImageGallery = forwardRef(function ImageGallery(
+  { images, isScroll, onView },
+  galleryRef
+) {
   return (
-    <>
-       {<ul className={css.container}>
-            {images.map((image) => (
-	/* Набір елементів списку із зображеннями */
-
-		 <li className="" key="image.id">
-                  <ImageCard data={image} /> 
-           </li>
-
-            ))} 
-        </ul> 
-      }
-    </>
-  )
-}
+    <main>
+      <ul className={css.list} ref={galleryRef}>
+        {images.map((image) => (
+          <li className={css.item} key={image.id} tabIndex={0}>
+            <ImageCard image={image} onView={onView} />
+          </li>
+        ))}
+      </ul>
+      {isScroll && (
+        <div className={css.top}>
+          <a className={css.arrow} href="#top">
+            <BiSolidChevronsUp className={css.icon} size="32" />
+          </a>
+        </div>
+      )}
+    </main>
+  );
+});
 
 export default ImageGallery
